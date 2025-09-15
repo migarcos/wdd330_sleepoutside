@@ -2,8 +2,19 @@ import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+
+  const totalH3 = document.querySelector("#carTotal");
+  if (!cartItems || cartItems.length === 0) {
+    totalH3.classList.add("hide");
+    document.querySelector(".product-list").innerHTML = "<h2>Cart is empty!</h2>";
+  } else {
+    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    document.querySelector(".product-list").innerHTML = htmlItems.join("");
+
+    totalH3.classList.remove("hide");
+    let total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+    totalH3.textContent = `Total: ${total}  `;
+  }
 }
 
 function cartItemTemplate(item) {
