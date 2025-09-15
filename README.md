@@ -2,7 +2,10 @@
 ## WDD 330 - Web Frontend Development II
 
 ### Netlify Deploy Site
-[wdd330migarc.netlify.app](https://wdd330migarc.netlify.app/)
+
+- [wdd330migarc.netlify.app](https://wdd330migarc.netlify.app/)
+
+- migarcos account -> app.netlify.com/teams/migarcos/projects
 
 ### ⛺ SleepOutside Starter Code
 

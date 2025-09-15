@@ -29,3 +29,16 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+export function renderListWithTemplate(templateFn, parentElement, list, clear = false) {
+  // Add the logic to your function to clear out the element provided if clear is true
+  // const htmlStrings = list.map(templateFn);
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  // parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+  list.forEach(product => {
+            const productCard = templateFn(product);
+            parentElement.appendChild(productCard);
+        });
+}
