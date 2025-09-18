@@ -42,3 +42,31 @@ export function renderListWithTemplate(templateFn, parentElement, list, clear = 
             parentElement.appendChild(productCard);
         });
 }
+
+export function renderWithTemplate(template, parentElement, data, callback) {
+  
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+}
+
+export async function loadTemplate(path) {
+  //  fetches the content of the HTML file given a path
+  const res = await fetch(path);
+  // The response to the fetch is converted to text
+  const template = await res.text();
+  return template;
+}
+
+export async function loadHeaderFooter() {
+  // Load the header and footer templates in from the partials using the loadTemplate
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const footerTemplate = await loadTemplate("../partials/footer.html")
+  // Grab the header and footer placeholder elements out of the DOM
+  const headerElement = document.querySelector("#main-header");
+  const footerElement = document.querySelector("#main-footer");
+  // Render the header and footer using renderWithTemplate
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
+}

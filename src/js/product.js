@@ -1,6 +1,6 @@
 // original line w01
 // import { setLocalStorage, getLocalStorage } from "./utils.mjs";
-import { getParam } from "./utils.mjs";
+import { getParam, loadHeaderFooter } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
@@ -9,6 +9,7 @@ const productId = getParam("product");
 const product = new ProductDetails(productId, dataSource);
 
 product.init();
+loadHeaderFooter();
 // console.log(dataSource.findProductById(productId));
 
 // removed in week02

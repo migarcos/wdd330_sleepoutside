@@ -30,7 +30,7 @@ export default class ProductList {
 }
 
 function productCardTemplate(product) {
-    // HTML Template: Use the <template> tag in HTML with some JavaScript to build your own solution.
+    // * HTML Template * : Use the <template> tag in HTML with some JavaScript to build your own solution.
     const template = document.getElementById("product-card-template");
     const clone = template.content.cloneNode(true);
 
@@ -49,7 +49,7 @@ function productCardTemplate(product) {
 
     return clone;
 
-    // TEMPLATE LITERAL : Use *Template Literal Strings* to build the solution
+    // * TEMPLATE LITERAL *: Use *Template Literal Strings* to build the solution
     // return `
     //     <li class="product-card">
     //         <a href="product_pages/?product=${product.Id}">
