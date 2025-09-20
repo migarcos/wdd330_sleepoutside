@@ -1,4 +1,4 @@
-import { renderListWithTemplate, getLocalStorage, setLocalStorage} from "./utils.mjs";
+import { renderListWithTemplate, getLocalStorage, setLocalStorage, setClick } from "./utils.mjs";
 
 export default class ShoppingCart {
 
@@ -34,11 +34,23 @@ export default class ShoppingCart {
         cartTotal.innerHTML = `Total: $ ${total.toFixed(2)}`;
     }
 
+    // addRemoveListeners() {
+    //     this.parentElement.querySelectorAll(".cart-card__remove").forEach( a => {
+    //         a.addEventListener( "click", (e) => {
+    //             e.preventDefault();
+    //             const id = a.getAttribute("data-id");
+    //             this.removeProduct(id);
+    //         });
+    //     });
+    // }
+
     addRemoveListeners() {
-        this.parentElement.querySelectorAll(".cart-card__remove").forEach( a => {
-            a.addEventListener( "click", (e) => {
-                e.preventDefault();
-                const id = a.getAttribute("data-id");
+        const removeButtons = this.parentElement.querySelectorAll(".cart-card__remove");
+
+        removeButtons.forEach(button => {
+            const id = button.getAttribute("data-id");
+
+            setClick(`.cart-card__remove[data-id="${id}"]`, () => {
                 this.removeProduct(id);
             });
         });
