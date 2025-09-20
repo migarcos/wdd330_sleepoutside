@@ -37,10 +37,10 @@ export function renderListWithTemplate(templateFn, parentElement, list, clear = 
     parentElement.innerHTML = "";
   }
   // parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
-  list.forEach(product => {
-            const productCard = templateFn(product);
-            parentElement.appendChild(productCard);
-        });
+  list.forEach( product => {
+      const productCard = templateFn(product);
+      parentElement.appendChild(productCard);
+  });
 }
 
 export function renderWithTemplate(template, parentElement, data, callback) {

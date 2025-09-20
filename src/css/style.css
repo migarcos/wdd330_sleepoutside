@@ -251,7 +251,7 @@ a.cart-card__remove {
   color: red;
 }
 
-#car-footer {
+#cart-footer {
   display: grid;
   grid-template: 1fr / 1fr 4fr 1fr;
 
@@ -259,6 +259,10 @@ a.cart-card__remove {
     grid-column: -3 / -2;
     text-align: right;
   }
+}
+
+.hide {
+  display: none;
 }
 
 @media screen and (min-width: 500px) {
@@ -274,6 +278,7 @@ a.cart-card__remove {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
+    width: 700px;
   }
 }
 
