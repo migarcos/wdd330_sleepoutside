@@ -88,7 +88,7 @@ function cartItemTemplate(item) {
     }
     const clone = template.content.cloneNode(true);
 
-    clone.querySelector("img").src = `${item.Image}`;
+    clone.querySelector("img").src = `${item.Images.PrimaryMedium}`;
     clone.querySelector("img").alt = `Image of ${item.Name}`;
     clone.querySelector(".card__name").textContent = `${item.Name}`;
     clone.querySelector(".cart-card__color").textContent = `${item.Colors[0].ColorName}`;

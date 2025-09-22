@@ -8,7 +8,7 @@ export default class ProductList {
         this.listElement = listElement;
     }
     async init() {
-        const list = await this.dataSource.getData();
+        const list = await this.dataSource.getData(this.category);
         this.renderList(list);
     }
 
@@ -40,8 +40,8 @@ function productCardTemplate(product) {
     const name = clone.querySelector(".card__name");
     const price = clone.querySelector(".product-card__price");
 
-    link.href = `product_pages/?product=${product.Id}`;
-    img.src = product.Image;
+    link.href = `/product_pages/?product=${product.Id}`;
+    img.src = product.Images.PrimaryLarge;
     img.alt = `Image of ${product.Name}`;
     brand.textContent = product.Brand.Name;
     name.textContent = product.Name;
