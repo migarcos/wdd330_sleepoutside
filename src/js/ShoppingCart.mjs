@@ -20,7 +20,7 @@ export default class ShoppingCart {
             document.querySelector(".cart-total").classList.add("hide");
         } else {
             renderListWithTemplate( cartItemTemplate, this.parentElement, this.cartItems, true);
-            this.addRemoveListeners();
+            this.addListeners();
             this.showTotal();
         }        
     }
@@ -30,7 +30,7 @@ export default class ShoppingCart {
         const cartTotal = document.querySelector(".cart-total");
 
         cartFooter.classList.remove("hide");
-        const total = this.cartItems.reduce( (sum, item) => sum + item.FinalPrice, 0);
+        const total = this.cartItems.reduce( (sum, item) => sum + item.FinalPrice * item.quantity, 0);
         cartTotal.innerHTML = `Total: $ ${total.toFixed(2)}`;
     }
 
@@ -44,7 +44,7 @@ export default class ShoppingCart {
     //     });
     // }
 
-    addRemoveListeners() {
+    addListeners() {
         const removeButtons = this.parentElement.querySelectorAll(".cart-card__remove");
 
         removeButtons.forEach(button => {
@@ -52,6 +52,24 @@ export default class ShoppingCart {
 
             setClick(`.cart-card__remove[data-id="${id}"]`, () => {
                 this.removeProduct(id);
+                const isMinus = button.classList.contains("btnMinus");
+                const change = isMinus ? -1 : 1;
+                
+                setClick(`.btnQty[data-id="${id}"].${isMinus ? 'btnMinus' : 'btnPlus'}`, () => {
+                    this.updateQuantity(id, change);
+                });
+            });
+        });
+
+        const qttyBtns = this.parentElement.querySelectorAll(".btnQty");
+
+        qttyBtns.forEach( button => {
+            const id = button.getAttribute("data-id");
+            const isMinus = button.classList.contains("btnMinus");
+            const change = isMinus ? -1 : 1;
+            
+            setClick(`.btnQty[data-id="${id}"].${isMinus ? 'btnMinus' : 'btnPlus'}`, () => {
+                this.updateQuantity(id, change);
             });
         });
     }
@@ -61,6 +79,23 @@ export default class ShoppingCart {
         updateCart = updateCart.filter( item => item.Id !== id);
         setLocalStorage(this.key, updateCart);
         this.renderCart();
+    }
+
+    updateQuantity(id, change) {
+        let cartItems = getLocalStorage(this.key);
+        const itemIndex = cartItems.findIndex(item => item.Id === id);
+
+        if (itemIndex > -1) {
+            cartItems[itemIndex].quantity += change;
+
+            if (cartItems[itemIndex].quantity <= 0) {
+                this.removeProduct(id);
+                return;
+            }
+        }
+        
+        setLocalStorage(this.key, cartItems);
+        this.renderCart(); 
     }
 }
 
@@ -94,9 +129,11 @@ function cartItemTemplate(item) {
     clone.querySelector(".cart-card__name").href = `/product_pages/?product=${item.Id}`;
     clone.querySelector(".card__name").textContent = `${item.Name}`;
     clone.querySelector(".cart-card__color").textContent = `${item.Colors[0].ColorName}`;
-    clone.querySelector(".card__quantity").textContent = ` 01 `;
-    clone.querySelector(".cart-card__price").textContent = `$ ${item.FinalPrice}`;
+    clone.querySelector(".card__quantity").textContent = ` ${item.quantity} `;
+    clone.querySelector(".cart-card__price").textContent = `$ ${item.FinalPrice * item.quantity}`;
     clone.querySelector(".cart-card__remove").setAttribute("data-id", item.Id);
+    clone.querySelector(".btnMinus").setAttribute("data-id", item.Id);
+    clone.querySelector(".btnPlus").setAttribute("data-id", item.Id);
 
     return clone;
 }

@@ -28,7 +28,7 @@
         </ul>
         <template id="cart-item-template">
           <li class="cart-card divider">
-            <a href="#" class="cart-card__remove"> x </a>
+            <a href="#" class="cart-card__remove"  data-id=""> x </a>
             <a href="" class="cart-card__image">
               <img src="" alt="" />
             </a>
@@ -37,9 +37,9 @@
             </a>
             <p class="cart-card__color"></p>
             <p  class="cart-card__quantity">
-              <button class="btnQty">-</button>
+              <button class="btnMinus btnQty" data-id="">-</button>
               <span class="card__quantity"></span>
-              <button class="btnQty">+</button>
+              <button class="btnPlus btnQty"  data-id="">+</button>
             </p>
             <p class="cart-card__price"></p>
           </li>
