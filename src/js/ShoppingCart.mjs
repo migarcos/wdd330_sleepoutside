@@ -90,9 +90,11 @@ function cartItemTemplate(item) {
 
     clone.querySelector("img").src = `${item.Images.PrimaryMedium}`;
     clone.querySelector("img").alt = `Image of ${item.Name}`;
+    clone.querySelector(".cart-card__image").href = `/product_pages/?product=${item.Id}`;
+    clone.querySelector(".cart-card__name").href = `/product_pages/?product=${item.Id}`;
     clone.querySelector(".card__name").textContent = `${item.Name}`;
     clone.querySelector(".cart-card__color").textContent = `${item.Colors[0].ColorName}`;
-    clone.querySelector(".cart-card__quantity").textContent = `qty: 1`;
+    clone.querySelector(".card__quantity").textContent = ` 01 `;
     clone.querySelector(".cart-card__price").textContent = `$ ${item.FinalPrice}`;
     clone.querySelector(".cart-card__remove").setAttribute("data-id", item.Id);
 
