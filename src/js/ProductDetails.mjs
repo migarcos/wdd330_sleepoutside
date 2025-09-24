@@ -35,9 +35,18 @@ export default class ProductDetails {
     // This method will be called from within the init() method.
     addProductToCart(){
         const cartItems = getLocalStorage("so-cart") || []; // get cart array of items from local storage if null set to empty array
-        cartItems.push(this.product); 
+
+        const verifyItem = cartItems.find( item => item.Id === this.product.Id );
+
+        if (verifyItem) {
+            verifyItem.quantity = ( verifyItem.quantity || 1 ) + 1 
+        } else {
+            const prodToAdd = { ...this.product, quantity: 1 }
+            cartItems.push(prodToAdd); 
+        } 
         setLocalStorage("so-cart", cartItems);
     }
+
     renderProductDetails(){
         productDetailsTemplate(this.product)
     }
